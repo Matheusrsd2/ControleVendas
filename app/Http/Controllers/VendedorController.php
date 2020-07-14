@@ -18,17 +18,25 @@ class VendedorController extends Controller
     }
 
     public function show($id){
-        $vendedor = Vendedor::findOrFail($id);
-        $vendas_vendedor = $vendedor->with('vendas')->get();
+        $vendedor = Vendedor::where('id', $id)
+        ->with('vendas')
+        ->get();
 
-        return $vendas_vendedor;
+        return $vendedor;
+    }
+    //******************* METODOS PARA WEB CLIENT *****************
+
+    public function getIndex()
+    {
+        $vendedor = Vendedor::get();
+        return view('vendedor', compact('vendedor'));
     }
 
-    //******************* METODOS PARA WEB CLIENT *****************
-    
-    public function indexWeb()
-    { 
-        $vendedor = Vendedor::all(); 
-        return view ('home')->with('vendedor',$vendedor);
+    public function showVendas ($id){
+        $vendedor = Vendedor::where('id', $id)
+        ->with('vendas')
+        ->get();
+
+        return view('vendas_vendedor', compact('vendedor'));
     }
 }

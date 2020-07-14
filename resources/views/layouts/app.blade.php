@@ -37,7 +37,7 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/vendedores">Consultar Vendedores</a>
+                <a class="nav-link" href="/vendedor">Consultar Vendedores</a>
             </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" style="position:absolute; left:550px">

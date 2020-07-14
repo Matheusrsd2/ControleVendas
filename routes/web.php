@@ -17,13 +17,13 @@ Route::get('/', 'VendasController@getIndex');
 
 
 //ROTAS PARA VENDEDORES
-Route::get('/vendedor', function () {
-    return view('vendedor');
-});
+Route::get('/vendedor', 'VendedorController@getIndex');
 
 Route::get('/cadastrar/vendedor', function () {
     return view('cadastrovendedor');
 });
+
+Route::get('/vendedor/vendas/{id}', 'VendedorController@showVendas');
 
 Route::post('/vendedor/novo', 'VendedorController@store');
 

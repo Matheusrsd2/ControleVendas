@@ -8,3 +8,4 @@ Route::apiResource('vendedor', 'VendedorController');
 Route::apiResource('vendas', 'VendasController');
 
 
+
