@@ -13,10 +13,13 @@ API e Web Client feitos com PHP/Laravel
 
 1 - Possuir apache server e o mysql instalados localmente, além do composer para as dependências;
 
-2 - executar os seguintes comandos no projeto
+2 - executar os seguintes comandos no projeto:
+
     composer install - para instalar todas as dependências 
-    php artisan key:generate - para gerar a chave de acesso
-    php artisan serve - para subir o servidor local
+
+    php artisan key:generate - para gerar a chave de acesso 
+    
+    php artisan serve - para subir o servidor local 
 
 3 - Executar as Migrations ou SQL (na raiz da aplicação) para criar as tabelas;
 
