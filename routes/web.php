@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//ROTAS PARA VENDAS
+Route::get('/', 'VendasController@getIndex');
 
-Route::get('/', 'VendedorController@indexWeb');
+
+//ROTAS PARA VENDEDORES
+Route::get('/vendedor', function () {
+    return view('vendedor');
+});
 
 Route::get('/cadastrar/vendedor', function () {
-    return view('vendedor');
+    return view('cadastrovendedor');
 });
 
 Route::post('/vendedor/novo', 'VendedorController@store');

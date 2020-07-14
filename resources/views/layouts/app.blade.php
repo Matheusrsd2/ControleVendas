@@ -14,10 +14,12 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <!--link href="{{ asset('css/app.css') }}" rel="stylesheet"!-->
+    
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/background.css') }}" rel="stylesheet">
 </head>
@@ -32,15 +34,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Consultar Vendas</a>
+                <a class="nav-link" href="/vendedores">Consultar Vendedores</a>
             </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" style="position:absolute; left:550px">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar no Site" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Pesquisar</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar Uma Venda" aria-label="Search">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Pesquisar</button>
             </form>
         </div>
     </nav>      

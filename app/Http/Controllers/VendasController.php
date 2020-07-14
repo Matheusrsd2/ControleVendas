@@ -11,14 +11,15 @@ class VendasController extends Controller
     //************** METODOS PARA API *******************
 
     public function index () {
-        return Vendas::all(); 
+        return Vendas::with('vendedor')->get();
     }
 
     public function show($id){
-        $vendas = Vendas::findOrFail($id);
-        $vendedor = $vendas->with('vendedor')->get();
+        $vendas = Vendas::where('id', $id)
+        ->with('vendedor')
+        ->get();
 
-        return $vendedor;
+        return $vendas;
     }
 
     public function store (Request $request)
@@ -28,5 +29,15 @@ class VendasController extends Controller
         $venda->vendedor_id = $request->input('vendedor_id');
         $venda->comissao = (8.5 / 100) * $request->input('valor_venda');
         $venda->save();
+    }
+
+    //************************ Metodos web Client **********************
+
+    public function getIndex()
+    {
+        $vendas = Vendas::with('vendedor')
+        ->orderBy('created_at', 'DESC')
+        ->get();
+        return view('home', compact('vendas'));
     }
 }
