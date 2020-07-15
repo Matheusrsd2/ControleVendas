@@ -19,9 +19,11 @@ Route::get('/cadastrar/venda', function () {
     return view('cadastrovenda');
 });
 
-Route::post('/venda/verificar', 'VendasController@BuscarVendasDoDia');
+Route::get('/venda/verificar', 'VendasController@BuscarVendasDoDia');
 
 Route::post('/venda/novo', 'VendasController@post');
+
+Route::post('/venda/sendmail', 'VendasController@EnviarEmail');
 
 
 //ROTAS PARA VENDEDORES

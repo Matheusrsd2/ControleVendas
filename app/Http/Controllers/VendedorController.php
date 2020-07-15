@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Vendedor;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VendedorController extends Controller
 {
@@ -18,23 +20,30 @@ class VendedorController extends Controller
         }
     }
 
-    public function store (Request $request) {
+    public function store (Request $request) 
+    {
         try {
-            Vendedor::create($request->all());
+            $vendedor = new Vendedor();
+            $vendedor->nome = $request->input('nome');
+            $vendedor->email = $request->input('email');
+            $vendedor->data = Carbon::parse()->format('d-m-Y');
+            $vendedor->save();
         }
-        catch (\Exception $e) {
+        catch(\Exception $e){
             return $e->getMessage();
-        }  
+        }
     }
 
     public function show($id){
-        $vendedor = Vendedor::where('id', $id)
-        ->with('vendas')
+        $vendedor = DB::table('vendedores')
+        ->join('vendas', 'vendas.vendedor_id', '=', 'vendedores.id') 
+        ->where('vendedores.id','=', $id)
         ->get();
-        if (!$vendedor) {
-            return response()->json(['response' => 'Vendedor Não Encontrado', 404]);
+        if ($vendedor) {
+            return response()->json([$vendedor, 200]);
         }
-        return response()->json([$vendedor, 200]);
+        return response()->json(['response' => 'Vendedor Não Encontrado', 404]);
+        
         
         
     }
@@ -43,19 +52,22 @@ class VendedorController extends Controller
     public function getIndex()
     {
         $vendedor = $this->index();
-        //$vendedor = Vendedor::get();
-        return view('vendedor', compact('vendedor'));
+        $count = count($vendedor);
+        return view('vendedor', compact('vendedor', 'count'));
     }
 
     public function showVendas ($id){
-        $vendedor = Vendedor::where('id', $id)
-        ->with('vendas')
-        ->get();
-        return view('vendas_vendedor', compact('vendedor'));
+        $vendedor = \DB::table('vendedores')
+        ->join('vendas', 'vendas.vendedor_id', '=', 'vendedores.id') 
+        ->where('vendedores.id','=', $id)
+        ->paginate(4);
+
+        return view('vendas_vendedor', ['vendedor' => $vendedor /*'count'=>$count*/]);
     }
+    
 
     public function post (Request $request) {
-        Vendedor::create($request->all());
-        return redirect('/vendedor');   
+        $vendedor = $this->store($request);
+        return redirect('/vendedor');  
     }
 }

@@ -6,19 +6,17 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Vendas;
 
 class TotalVendas extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $venda;
+
+    public function __construct(Venda $venda)
     {
-        //
+        $this->venda = $venda;
     }
 
     /**
@@ -28,6 +26,9 @@ class TotalVendas extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->from('teste@no-reply.com', 'teste')
+            ->subject('Total de vendas do Dia')
+            ->view('vendas_dia')
+            ->with(['venda' => $this->venda]);
     }
 }

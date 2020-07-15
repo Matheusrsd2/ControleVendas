@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Vendedor extends Model
 {
     protected $fillable = [
-        'nome', 'email'
+        'nome', 'email', 'data'
     ];
+
+    protected $table = "vendedores";
 
     public $timestamps = false;
 

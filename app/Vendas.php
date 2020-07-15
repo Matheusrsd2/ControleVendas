@@ -10,7 +10,9 @@ class Vendas extends Model
         'comissao', 'valor_venda', 'vendedor_id'
     ];
 
-    protected $hora = [
+    protected $table = "vendas";
+
+    protected $data = [
         'data'
     ];
 

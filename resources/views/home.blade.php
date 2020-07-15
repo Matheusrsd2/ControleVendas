@@ -8,16 +8,10 @@
         </div>
     @endif
 <head>
-    <<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
-    <style>
-        div#card{
-            background: url('../../../public/img/card.jpg');
-        }
-    </style>
     <script>
 		$(document).ready(function(){
 			$('#myModal').modal('show');
-		//});
+		});
 	</script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
@@ -27,7 +21,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verificar">
             Verificar todas as Vendas do Dia 
         </button>
-        <div id="card" class="card col-sm-11 p-3 mb-2 text-dark">
+        <div id="card" class="card col-sm-11 p-3 mb-2 text-dark" style="position:absolute; left:5%">
             <div class="card-body">
                 <a href="/cadastrar/vendedor">
                     <button class="btn btn-info">Cadastrar novo vendedor
@@ -40,7 +34,7 @@
                     </button>
                 </a>
             </div>
-            <h3 style="font-family: 'Noto Sans JP', sans-serif; color:#f5f5f5;"><b>ULTIMAS VENDAS (Por ordem de cadastro)</b></h3>
+            <h3 style="font-family: 'Noto Sans JP', sans-serif;"><b>ULTIMAS VENDAS (Por ordem de cadastro)</b></h3>
             <table class="table table-light table-hover">
                 <thead class="thead thead-secondary"> 
                     <tr>
@@ -62,21 +56,8 @@
                         <td>{{$v->vendedor->id}}</td>
                         <td>{{$v->vendedor->nome}}</td>
                         <td>{{$v->vendedor->email}}</td> 
-                        <th>{{$v->hora = \Carbon\Carbon::parse()->format('d-m-Y')}}</th>
-                        <td>
-                            <!--a href="javascript: if(confirm('Tem certeza que deseja Excluir?')) 
-                                location.href='/os/deletar/'">                           
-                                <button class="btn btn-danger"><i class="medium material-icons" style="font-size: 1.2em">close</i>Excluir</button>
-                            </a> 
-                            <td>
-                            <a href="javascript: if(confirm('Clique em OK para Confirmar')) 
-                                location.href='/os/update/'">                           
-                                <button class="btn btn-danger"><i class="medium material-icons" style="font-size: 1.2em">close</i>Concluído</button>
-                            </a>            
-                            <a href="/os/detalhes/">
-                                <button class="btn btn-info">Ver Detalhes</button>
-                            </a!-->
-                        </td>
+                        <th>{{$v->data = \Carbon\Carbon::parse()->format('d-m-Y')}}</th>
+                        
                         @endforeach
                     </tr>  
                 </tbody>
@@ -84,8 +65,7 @@
         </div>
         <!-- modal -->
         <div class="modal fade" id="verificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <form action="/venda/verificar" method="post">
-                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+            <form action="/venda/verificar" method="get">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

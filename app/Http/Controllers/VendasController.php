@@ -6,29 +6,44 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Vendas;
 use Carbon\Carbon;
+use App\Mail\TotalVendas;
+use Illuminate\Support\Facades\Mail;
 class VendasController extends Controller
 {
     //************** METODOS PARA API *******************
 
     public function index () {
-        return Vendas::with('vendedor')->get();
+        try {
+            $vendas = Vendas::all();
+            return $vendas;
+        } catch(\Exception $e){
+            return $e->getMessage();
+        }
     }
 
     public function show($id){
         $vendas = Vendas::where('id', $id)
         ->with('vendedor')
         ->get();
-
-        return $vendas;
+        if (!$vendas) {
+            return response()->json(['response' => 'Venda Não Encontrada', 404]);
+        }
+        return response()->json([$vendas, 200]);
     }
 
     public function store (Request $request)
     {
-        $venda = new Vendas();
-        $venda->valor_venda = $request->input('valor_venda');
-        $venda->vendedor_id = $request->input('vendedor_id');
-        $venda->comissao = (8.5 / 100) * $request->input('valor_venda');
-        $venda->save();
+        try {
+            $venda = new Vendas();
+            $venda->valor_venda = $request->input('valor_venda');
+            $venda->vendedor_id = $request->input('vendedor_id');
+            $venda->comissao = (8.5 / 100) * $request->input('valor_venda');
+            $venda->data = Carbon::parse()->format('d-m-Y');
+            $venda->save();
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+        }
     }
 
     //************************ Metodos web Client **********************
@@ -36,7 +51,7 @@ class VendasController extends Controller
     public function getIndex()
     {
         $vendas = Vendas::with('vendedor')
-        ->orderBy('hora', 'DESC')
+        ->orderBy('data', 'DESC')
         ->get();
 
         return view('home', compact('vendas'));
@@ -44,29 +59,33 @@ class VendasController extends Controller
 
     public function post (Request $request)
     {
-        $venda = new Vendas();
-        $venda->valor_venda = $request->input('valor_venda');
-        $venda->vendedor_id = $request->input('vendedor_id');
-        $venda->comissao = (8.5 / 100) * $request->input('valor_venda');
-        $venda->hora = Carbon::parse()->format('d-m-Y');
-        $venda->save();
-
+        $venda = $this->store($request);
         return redirect('/');
     }
 
     public function BuscarVendasDoDia(Request $request)
     {
         $data = $request->input('data');
+        $data = Carbon::parse()->format('d-m-Y');
         $vendas = Vendas::with('vendedor')
-        ->where('hora', '=', $data)
+        ->where('data', '=', $data)
         ->get();
 
         return view('vendas_dia', compact('vendas'));
     }
 
     public function EnviarEmail(Request $request) {
-        $venda = new Venda();
-        $venda->email = $request->get('email');
-        Mail::to($request->get('email'))->send();
-     }
+        $data = Carbon::parse()->format('d-m-Y');
+        $vendas = Vendas::with('vendedor')
+        ->where('data', '=', $data)
+        ->get();
+        $mail = $request->input('email');
+
+        Mail::send('vendas_dia', ['vendas' => $vendas], function ($m) {
+            $m->from('teste@no-reply.com');
+            $m->to('matheusreis_@outlook.com');
+        });
+
+        return redirect()->back();
+    }
 }

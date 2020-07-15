@@ -1,29 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-
+<head>
+    <style>
+    div#pagination{
+        position: absolute;
+        left: 440px;
+    }
+    </style>
+</head>
 <body>
-    @foreach($vendedor as $v)
-        <center>
-            <div id="card" class="card col-sm-5 p-0 mb-2 text-dark">
-                <div class="card-body">
-                    <h3>Vendedor: {{$v->nome}}</h3>
-                    <h3>Vendas:</h3> 
-                </div>
+    <center>
+        <div id="card" class="card col-sm-5 p-0 mb-2 text-dark">
+            <div class="card-body">
+                <h6>Vendas Por Vendedor </h6> 
             </div>
-        
-            @foreach ($v->vendas as $vendas)
-                <div id="card" class="card col-sm-8 p-1 mb-1 text-dark">
-                    <div class="card-body">
-                        <h6>Data da Venda: {{$vendas->hora}}</h6>
-                        <h6>Código da Venda: {{$vendas->id}}</h6>
-                        <h6>Valor da Venda: R$ {{$vendas->valor_venda}}</h6>
-                        <h6>Comissão (centavos após o ponto): R$ {{$vendas->comissao}}</h6>
-                    </div>          
-                </div>
-            @endforeach
-        </center>
-    @endforeach
+        </div>
+        @foreach($vendedor as $v)
+            <div id="card" class="card col-sm-8 p-1 mb-1 text-dark">
+                <div class="card-body">
+                <img src=" {{asset('img/check.jpg')}}" height="90px" width="90px" style="position:absolute; left:520px;">
+                    <p style="position: absolute; font-size: .9em;">Vendedor: {{$v->nome}}</p><br>
+                    <p style="position: absolute; font-size: .9em;">Data da Venda: {{$v->data}}</p><br>
+                    <p style="position: absolute; font-size: .9em;">Código da Venda: {{$v->id}}</p><br>
+                    <p style="position: absolute; font-size: .9em;">Valor da Venda: R$ {{$v->valor_venda}}</p><br>
+                    <p style="position: absolute; font-size: .9em;">Comissão (centavos após o ponto): R$ {{$v->comissao}}</p><br>
+                </div>          
+            </div> 
+        @endforeach <br>
+        <div id="pagination">
+            {!! $vendedor->links() !!}
+        </div>
+    </center>
 </body>
 
 @endsection
