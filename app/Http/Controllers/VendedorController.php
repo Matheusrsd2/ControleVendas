@@ -10,25 +10,40 @@ class VendedorController extends Controller
     //******************* METODOS PARA API *********************
 
     public function index () {
-        return Vendedor::all();
+        try {
+            $vendedor = Vendedor::all();
+            return $vendedor;
+        } catch(\Exception $e){
+            return $e->getMessage();
+        }
     }
 
     public function store (Request $request) {
-        Vendedor::create($request->all());
+        try {
+            Vendedor::create($request->all());
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }  
     }
 
     public function show($id){
         $vendedor = Vendedor::where('id', $id)
         ->with('vendas')
         ->get();
-
-        return $vendedor;
+        if (!$vendedor) {
+            return response()->json(['response' => 'Vendedor Não Encontrado', 404]);
+        }
+        return response()->json([$vendedor, 200]);
+        
+        
     }
     //******************* METODOS PARA WEB CLIENT *****************
 
     public function getIndex()
     {
-        $vendedor = Vendedor::get();
+        $vendedor = $this->index();
+        //$vendedor = Vendedor::get();
         return view('vendedor', compact('vendedor'));
     }
 
@@ -36,7 +51,11 @@ class VendedorController extends Controller
         $vendedor = Vendedor::where('id', $id)
         ->with('vendas')
         ->get();
-
         return view('vendas_vendedor', compact('vendedor'));
+    }
+
+    public function post (Request $request) {
+        Vendedor::create($request->all());
+        return redirect('/vendedor');   
     }
 }

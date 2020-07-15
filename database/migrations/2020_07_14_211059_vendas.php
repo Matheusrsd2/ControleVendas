@@ -20,7 +20,7 @@ class Vendas extends Migration
             $table->double('valor_venda');
             $table->integer('vendedor_id')->unsigned();
             $table->foreign('vendedor_id')->references('id')->on('vendedors');
-            $table->timestamps();
+            $table->timestamp('hora')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -6,26 +7,35 @@
             {{ session('status') }}
         </div>
     @endif
-    <head>
-        <<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
-        <style>
-            div#card{
-                background: url('../../../public/img/card.jpg');
-            }
-        </style>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
-    <body>
+<head>
+    <<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+    <style>
+        div#card{
+            background: url('../../../public/img/card.jpg');
+        }
+    </style>
+    <script>
+		$(document).ready(function(){
+			$('#myModal').modal('show');
+		//});
+	</script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
     <center>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verificar">
+            Verificar todas as Vendas do Dia 
+        </button>
         <div id="card" class="card col-sm-11 p-3 mb-2 text-dark">
             <div class="card-body">
                 <a href="/cadastrar/vendedor">
-                    <button class="btn btn-light">Cadastrar novo vendedor
+                    <button class="btn btn-info">Cadastrar novo vendedor
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>  
                 </a>
-                <a href="/criar/venda">
-                    <button class="btn btn-light">Informar Nova Venda
+                <a href="/cadastrar/venda">
+                    <button class="btn btn-info">Informar Nova Venda
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                     </button>
                 </a>
@@ -52,7 +62,7 @@
                         <td>{{$v->vendedor->id}}</td>
                         <td>{{$v->vendedor->nome}}</td>
                         <td>{{$v->vendedor->email}}</td> 
-                        <th>{{$v->created_at}}</th>
+                        <th>{{$v->hora = \Carbon\Carbon::parse()->format('d-m-Y')}}</th>
                         <td>
                             <!--a href="javascript: if(confirm('Tem certeza que deseja Excluir?')) 
                                 location.href='/os/deletar/'">                           
@@ -67,11 +77,32 @@
                                 <button class="btn btn-info">Ver Detalhes</button>
                             </a!-->
                         </td>
-                        @endforeach;
+                        @endforeach
                     </tr>  
                 </tbody>
             </table>
         </div>
-        </center>
+        <!-- modal -->
+        <div class="modal fade" id="verificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <form action="/venda/verificar" method="post">
+                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Informe o dia que deseja</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="date" name="data" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Verificar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </center>
+	
     </body>
+
 @endsection

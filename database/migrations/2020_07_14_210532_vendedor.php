@@ -18,7 +18,7 @@ class Vendedor extends Migration
            	$table->increments('id')->unsigned();
             $table->string('nome', 50);
             $table->string('email', 50);
-            $table->timestamps();
+            $table->timestamp('hora')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

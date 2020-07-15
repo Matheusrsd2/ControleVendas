@@ -10,6 +10,8 @@ class Vendedor extends Model
         'nome', 'email'
     ];
 
+    public $timestamps = false;
+
     public function vendas () {
         return $this->hasMany('App\Vendas', 'vendedor_id');
     }

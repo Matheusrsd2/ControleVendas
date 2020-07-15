@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 //ROTAS PARA VENDAS
 Route::get('/', 'VendasController@getIndex');
 
+Route::get('/cadastrar/venda', function () {
+    return view('cadastrovenda');
+});
+
+Route::post('/venda/verificar', 'VendasController@BuscarVendasDoDia');
+
+Route::post('/venda/novo', 'VendasController@post');
+
 
 //ROTAS PARA VENDEDORES
 Route::get('/vendedor', 'VendedorController@getIndex');
@@ -25,5 +33,5 @@ Route::get('/cadastrar/vendedor', function () {
 
 Route::get('/vendedor/vendas/{id}', 'VendedorController@showVendas');
 
-Route::post('/vendedor/novo', 'VendedorController@store');
+Route::post('/vendedor/novo', 'VendedorController@post');
 

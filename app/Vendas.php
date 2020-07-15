@@ -10,7 +10,15 @@ class Vendas extends Model
         'comissao', 'valor_venda', 'vendedor_id'
     ];
 
+    protected $hora = [
+        'data'
+    ];
+
+    protected $dateFormat = 'd-m-Y';
+    
+    public $timestamps = false;
+
     public function vendedor () {
-        return $this->belongsTo('App\Vendedor', 'id');
+        return $this->belongsTo('App\Vendedor', 'vendedor_id', 'id');
     }   
 }

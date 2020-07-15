@@ -5,7 +5,7 @@
 <body>
     @foreach($vendedor as $v)
         <center>
-            <div id="card" class="card col-sm-10 p-1 mb-2 text-dark">
+            <div id="card" class="card col-sm-5 p-0 mb-2 text-dark">
                 <div class="card-body">
                     <h3>Vendedor: {{$v->nome}}</h3>
                     <h3>Vendas:</h3> 
@@ -13,17 +13,17 @@
             </div>
         
             @foreach ($v->vendas as $vendas)
-                <div id="card" class="card col-sm-11 p-3 mb-2 text-dark">
+                <div id="card" class="card col-sm-8 p-1 mb-1 text-dark">
                     <div class="card-body">
-                        <h5>Data da Venda: {{$vendas->created_at}}</h5>
-                        <h5>Código da Venda: {{$vendas->id}}</h5>
-                        <h5>Valor da Venda: R$ {{$vendas->valor_venda}}</h5>
-                        <h5>Comissão: R$ {{$vendas->comissao}}</h5>
+                        <h6>Data da Venda: {{$vendas->hora}}</h6>
+                        <h6>Código da Venda: {{$vendas->id}}</h6>
+                        <h6>Valor da Venda: R$ {{$vendas->valor_venda}}</h6>
+                        <h6>Comissão (centavos após o ponto): R$ {{$vendas->comissao}}</h6>
                     </div>          
                 </div>
-            @endforeach;
+            @endforeach
         </center>
-    @endforeach;
+    @endforeach
 </body>
 
 @endsection

@@ -18,15 +18,15 @@
 <body>
 <center>
 <div id="form">
-    <form action="/vendedor/novo" method="post" enctype="multipart/form-data">
+    <form action="/venda/novo" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-        <div class="col-sm-8">
-            <label><b>Informe o nome do Vendedor</label><br>
-            <input type="text" class="form-control" name="nome" required><br>
+        <div class="col-sm-2">
+            <label><b>Valor da Venda</label>
+            <input type="number" class="form-control" name="valor_venda" step="0.01" required><br>
         </div>
-        <div class="col-sm-8">
-            <label><b>Email do vendedor</label>
-            <input type="email" class="form-control" name="email" required><br>
+        <div class="col-sm-2">
+            <label><b>Informe o ID do Vendedor</label><br>
+            <input type="number" class="form-control" name="vendedor_id" required><br>
         </div>
         <button class="btn btn-primary">Salvar</button>
     </form>

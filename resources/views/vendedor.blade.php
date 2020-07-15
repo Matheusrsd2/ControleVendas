@@ -3,7 +3,7 @@
 @section('content')
 
 <body>
-    <h3 style="font-family: 'Noto Sans JP', sans-serif; color:#f5f5f5;"><b>VENDEDORES</b></h3>
+    <center><h3 style="font-family: 'Noto Sans JP', sans-serif; color:#f5f5f5;"><b>VENDEDORES</b></h3></center>
         <table class="table table-light table-hover">
                 <thead class="thead thead-secondary"> 
                     <tr>
@@ -20,7 +20,7 @@
                         <td>{{$v->id}}</td>
                         <td>{{$v->nome}}</td>
                         <td>{{$v->email}}</td> 
-                        <th>{{$v->created_at}}</th>
+                        <th>{{$v->hora}}</th>
                         <td>         
                             <a href="/vendedor/vendas/{{$v->id}}">
                                 <button class="btn btn-info">Consultar Todas as vendas</button>
