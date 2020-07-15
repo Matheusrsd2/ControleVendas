@@ -43,9 +43,9 @@
                 <a class="nav-link" href="/vendedor">Consultar Vendedores</a>
             </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" style="position:absolute; left:550px">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar Uma Venda" aria-label="Search">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Pesquisar</button>
+            <form class="form-inline my-2 my-lg-0" action="{{ url ('/buscar') }}" style="position:absolute; left:550px">
+                <input class="form-control mr-sm-4" type="search" name="buscar" placeholder="Buscar Vendedor por Nome ou ID" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>
     </nav>      

@@ -37,3 +37,5 @@ Route::get('/vendedor/vendas/{id}', 'VendedorController@showVendas');
 
 Route::post('/vendedor/novo', 'VendedorController@post');
 
+Route::get('/buscar', 'VendedorController@buscarVendedor');
+

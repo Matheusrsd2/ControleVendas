@@ -13,7 +13,7 @@
     <center>
         <div id="card" class="card col-sm-5 p-0 mb-2 text-dark">
             <div class="card-body">
-                <h6>Vendas Por Vendedor </h6> 
+                <h6>Total de Vendas deste Vendedor: {{$count}} </h6> 
             </div>
         </div>
         @foreach($vendedor as $v)
@@ -28,9 +28,6 @@
                 </div>          
             </div> 
         @endforeach <br>
-        <div id="pagination">
-            {!! $vendedor->links() !!}
-        </div>
     </center>
 </body>
 

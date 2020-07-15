@@ -83,7 +83,7 @@ class VendasController extends Controller
 
         Mail::send('vendas_dia', ['vendas' => $vendas], function ($m) {
             $m->from('teste@no-reply.com');
-            $m->to('matheusreis_@outlook.com');
+            $m->to('$mail');
         });
 
         return redirect()->back();

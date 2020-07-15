@@ -34,7 +34,7 @@
                     </button>
                 </a>
             </div>
-            <h3 style="font-family: 'Noto Sans JP', sans-serif;"><b>ULTIMAS VENDAS (Por ordem de cadastro)</b></h3>
+            <h3 style="font-family: 'Noto Sans JP', sans-serif;"><b>VENDAS</b></h3>
             <table class="table table-light table-hover">
                 <thead class="thead thead-secondary"> 
                     <tr>

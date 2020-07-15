@@ -7,6 +7,7 @@ use App\Vendedor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+
 class VendedorController extends Controller
 {
     //******************* METODOS PARA API *********************
@@ -60,14 +61,26 @@ class VendedorController extends Controller
         $vendedor = \DB::table('vendedores')
         ->join('vendas', 'vendas.vendedor_id', '=', 'vendedores.id') 
         ->where('vendedores.id','=', $id)
-        ->paginate(4);
+        ->get();
 
-        return view('vendas_vendedor', ['vendedor' => $vendedor /*'count'=>$count*/]);
+        $count = count($vendedor);
+
+        return view('vendas_vendedor', ['vendedor' => $vendedor, 'count' => $count]);
     }
     
 
     public function post (Request $request) {
         $vendedor = $this->store($request);
         return redirect('/vendedor');  
+    }
+
+    //BONUS 
+    public function buscarVendedor (Request $request) {
+        $busca = $request->input('buscar');
+        $vendedor = Vendedor::where('nome', 'LIKE', '%'.$busca.'%')
+        ->orWhere('vendedores.id','=', $busca)->get();
+        $count = count($vendedor);
+
+        return view('/buscavendedor',  compact('vendedor', 'count'));
     }
 }
