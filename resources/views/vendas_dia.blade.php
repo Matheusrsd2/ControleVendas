@@ -17,7 +17,7 @@
         </button>
     <div id="card" class="card col-sm-11 p-3 mb-2 text-dark"  style="position:absolute; left:5%">
         <div class="card-body">
-            <h3 style="font-family: 'Noto Sans JP', sans-serif;"><b>Vendas do Dia</b></h3>
+            <h3 style="font-family: 'Noto Sans JP', sans-serif;"><b>Total de Vendas do Dia: {{$count}} Vendas</b></h3>
             <table class="table table-light table-hover">
                 <thead class="thead thead-secondary"> 
                     <tr>

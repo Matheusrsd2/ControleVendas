@@ -70,8 +70,9 @@ class VendasController extends Controller
         $vendas = Vendas::with('vendedor')
         ->where('data', '=', $data)
         ->get();
+        $count = count($vendas);
 
-        return view('vendas_dia', compact('vendas'));
+        return view('vendas_dia', compact('vendas', 'count'));
     }
 
     public function EnviarEmail(Request $request) {
